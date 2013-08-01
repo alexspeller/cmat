@@ -28,7 +28,7 @@ var adapter = DS.Adapter.extend({
       return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(json){
         console.log(json);
         console.log(json.data);
-        adapter.didFindQuery(store, type, json.data, recordArray);
+        adapter.didFindQuery(store, type, json, recordArray);
       });
   }
 });
