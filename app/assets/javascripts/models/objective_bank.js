@@ -12,6 +12,22 @@ var adapter = DS.Adapter.extend({
     $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks/'+id).then( function(json) {
       store.load(type, json);
     });
+  },
+  findQuery: function(store, type, query, recordArray) {
+    // $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then( function(objectivebanks) {
+    //   //console.log(objectivebanks);
+    //   objectivebanks.forEach(function(objectivebank){
+    //     //console.log(objectivebank);
+    //   });
+
+    //     console.log(adapter);
+    //     console.log(since);
+    //     store.load(type, objectivebank[0]);
+      adapter = this;
+
+      return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(json){
+        adapter.didFindQuery(store, type, json, recordArray);
+      });
   }
 });
 
