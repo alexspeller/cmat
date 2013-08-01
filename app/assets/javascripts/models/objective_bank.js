@@ -6,10 +6,12 @@ var ObjectiveBank = Ember.Object.extend({
 
 ObjectiveBank.reopenClass({
   findAll: function(){
-    var banks = Em.A();
     return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(response){
-      console.log(response);
-      console.log(response.data);
+      var banks = Em.A();
+      response.forEach(function (bank) {
+        banks.pushObject(App.ObjectiveBank.create(bank));
+      });
+      return banks;
     });
   }
 });
