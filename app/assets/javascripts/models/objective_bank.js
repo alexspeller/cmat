@@ -1,56 +1,63 @@
 var ModelBase = require('./model_base');
 
-var ObjectiveBank = ModelBase.extend({
-  current: DS.attr('boolean'),
-  genusTypeId: DS.attr('string'),
-  description: DS.attr('description'),
-  displayName: DS.attr('displayName')
+var ObjectiveBank = Ember.Object.extend({
+
 });
 
-var adapter = DS.Adapter.extend({
-  find: function(store, type, id) {
-    $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks/'+id).then( function(json) {
-      store.load(type, json);
+ObjectiveBank.reopenClass({
+  findAll: function(){
+    var banks = Em.A();
+    return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(response){
+      console.log(response);
+      console.log(response.data);
     });
-  },
-  findQuery: function(store, type, query, recordArray) {
-    // $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then( function(objectivebanks) {
-    //   //console.log(objectivebanks);
-    //   objectivebanks.forEach(function(objectivebank){
-    //     //console.log(objectivebank);
-    //   });
-
-    //     console.log(adapter);
-    //     console.log(since);
-    //     store.load(type, objectivebank[0]);
-      adapter = this;
-
-      return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(json){
-        adapter.didFindQuery(store, type, json, recordArray);
-      });
   }
 });
 
-adapter.registerTransform('description', {
-  serialize: function(value) {
-    return Em.isNone(value) ? {} : value;
-  },
+// var adapter = DS.Adapter.extend({
+//   find: function(store, type, id) {
+//     $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks/'+id).then( function(json) {
+//       store.load(type, json);
+//     });
+//   },
+//   findQuery: function(store, type, query, recordArray) {
+//     // $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then( function(objectivebanks) {
+//     //   //console.log(objectivebanks);
+//     //   objectivebanks.forEach(function(objectivebank){
+//     //     //console.log(objectivebank);
+//     //   });
 
-  deserialize: function(value) {
-    return Em.isNone(value) ? {} : value;
-  }
-});
+//     //     console.log(adapter);
+//     //     console.log(since);
+//     //     store.load(type, objectivebank[0]);
+//       adapter = this;
 
-adapter.registerTransform('displayName', {
-  serialize: function(value) {
-    return Em.isNone(value) ? {} : value;
-  },
+//       return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(json){
+//         adapter.didFindQuery(store, type, json, recordArray);
+//       });
+//   }
+// });
 
-  deserialize: function(value) {
-    return Em.isNone(value) ? {} : value;
-  }
-});
+// adapter.registerTransform('description', {
+//   serialize: function(value) {
+//     return Em.isNone(value) ? {} : value;
+//   },
 
-App.Store.registerAdapter('App.ObjectiveBank', adapter);
+//   deserialize: function(value) {
+//     return Em.isNone(value) ? {} : value;
+//   }
+// });
+
+// adapter.registerTransform('displayName', {
+//   serialize: function(value) {
+//     return Em.isNone(value) ? {} : value;
+//   },
+
+//   deserialize: function(value) {
+//     return Em.isNone(value) ? {} : value;
+//   }
+// });
+
+// App.Store.registerAdapter('App.ObjectiveBank', adapter);
 
 module.exports = ObjectiveBank;
