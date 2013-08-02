@@ -38,8 +38,8 @@ var ToolbarController = Ember.Controller.extend({
   importObjectiveBank: function(objectiveBank){
     var map = App.Map.createRecord();
     map.set('title', objectiveBank.get('genusTypeId'));
-    map.load_from_mc3().then(function(value){
-      console.log('last');
+    map.load_from_mc3(objectiveBank).then(function(map){
+      console.log(map);
       //this.get('controllers.map').set('content', map);
     }).then(function(error){
       console.log(error);
