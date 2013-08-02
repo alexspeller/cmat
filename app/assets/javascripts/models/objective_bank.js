@@ -14,18 +14,22 @@ var adapter = DS.Adapter.extend({
     });
   },
   findQuery: function(store, type, query, recordArray) {
-      adapter = this;
+    adapter = this;
+    console.log(recordArray);
+    $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(response){
+      console.log(response);
+      var arr = Em.A();
+      response.forEach(function (bank) {
+        console.log('bank:');
+        console.log(bank);
+
+        arr.push( App.ObjectiveBank.createRecord(bank) );
+        console.log('==============');
 
 
-      return $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebanks').then(function(response){
-        var banks = Em.A();
-        console.log(response);
-        response.forEach(function (bank) {
-          banks.pushObject(App.ObjectiveBank.createRecord(bank));
-        });
-        console.log(banks);
-        return banks;
       });
+      recordArray.load({'objectivebanks': arr, type: type});
+    });
   }
 });
 

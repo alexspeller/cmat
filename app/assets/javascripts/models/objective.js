@@ -15,7 +15,6 @@ var adapter = DS.Adapter.extend({
   },
   findQuery: function(store, type, since) {
     $.getJSON('https://oki-dev.mit.edu/handcar/services/learning/objectivebank').then( function(json) {
-      console.log(json);
       store.loadMany(type, json);
     });
   }
