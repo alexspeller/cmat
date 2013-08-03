@@ -2,7 +2,6 @@ var ModelBase = require('./model_base');
 
 
 var ObjectiveBank = ModelBase.extend({
-  current: DS.attr('boolean'),
   genusTypeId: DS.attr('string'),
   description: DS.attr('description'),
   displayName: DS.attr('displayName'),
