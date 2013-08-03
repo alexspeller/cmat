@@ -51,6 +51,7 @@ var App = Ember.Application.create({
 });
 
 Ember.RSVP.configure('onerror', function(e) {
+  console.log('onerror:')
   console.log(e.message);
   console.log(e.stack);
 });
